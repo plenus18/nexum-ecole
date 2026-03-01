@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexum École — Devenez le talent qu'ils cherchent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:       #05040d;
+  --bg2:      #080718;
+  --surface:  #0d0b1f;
+  --border:   rgba(139,92,246,0.12);
+  --border2:  rgba(139,92,246,0.06);
+  --p:        #7c3aed;
+  --p2:       #9d5cf0;
+  --p3:       #c4b5fd;
+  --p4:       #ede9fe;
+  --gold:     #d4a853;
+  --gold2:    #f0c060;
+  --text:     #f1f0f7;
+  --muted:    #8b87a8;
+  --soft:     #b8b4d0;
+  --ff-title: 'Cormorant Garamond', serif;
+  --ff-body:  'Outfit', sans-serif;
+  --r:        12px;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ═══════════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════════ */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--p3);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transition: transform .15s ease, background .2s;
+  transform: translate(-50%,-50%);
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(196,181,253,0.4);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transition: transform .4s cubic-bezier(.25,.46,.45,.94), width .3s, height .3s, border-color .3s;
+  transform: translate(-50%,-50%);
+}
+body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring {
+  width: 56px; height: 56px;
+  border-color: rgba(196,181,253,0.7);
+}
+
+/* ═══════════════════════════════════════════
+   GRAIN OVERLAY
+═══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; opacity: .5;
+}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.25rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(5,4,13,0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border2);
+  transition: background .3s;
+}
+.nav-logo {
+  font-family: var(--ff-title);
+  font-size: 1.6rem; font-weight: 600;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #fff 30%, var(--p3));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.nav-logo span { color: var(--gold); -webkit-text-fill-color: var(--gold); font-style: italic; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  color: var(--muted); text-decoration: none; font-size: .875rem;
+  font-weight: 400; letter-spacing: .04em;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: var(--p); color: white; border: none;
+  padding: .65rem 1.6rem; border-radius: 100px;
+  font-family: var(--ff-body); font-size: .85rem; font-weight: 500;
+  cursor: pointer; transition: background .2s, transform .2s;
+  letter-spacing: .03em;
+}
+.nav-cta:hover { background: var(--p2); transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  position: relative; overflow: hidden;
+}
+/* Radial glow bg */
+.hero::after {
+  content: '';
+  position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse, rgba(124,58,237,.22) 0%, rgba(124,58,237,.06) 40%, transparent 70%);
+  pointer-events: none;
+}
+/* Floating orbs */
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); pointer-events: none; opacity: .35;
+  animation: float 8s ease-in-out infinite;
+}
+.orb1 { width: 400px; height: 400px; background: #5b21b6; top: 5%; left: -8%; animation-delay: 0s; }
+.orb2 { width: 300px; height: 300px; background: #7c3aed; top: 30%; right: -5%; animation-delay: -3s; }
+.orb3 { width: 200px; height: 200px; background: #d4a853; bottom: 20%; left: 20%; animation-delay: -5s; opacity: .15; }
+@keyframes float {
+  0%,100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+/* Grid lines */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(139,92,246,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139,92,246,.05) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent);
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .6rem;
+  border: 1px solid rgba(196,181,253,.25);
+  background: rgba(124,58,237,.08);
+  color: var(--p3); padding: .4rem 1.1rem; border-radius: 100px;
+  font-size: .78rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  margin-bottom: 2rem; position: relative; z-index: 1;
+  animation: fadeUp .8s ease both;
+}
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; background: var(--p3);
+  border-radius: 50%; animation: pulse 2s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+.hero-title {
+  font-family: var(--ff-title);
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  font-weight: 300; line-height: 1.05; letter-spacing: -.01em;
+  color: white; position: relative; z-index: 1;
+  animation: fadeUp .8s .1s ease both;
+}
+.hero-title em { font-style: italic; color: var(--p3); }
+.hero-title .gold { color: var(--gold); font-style: italic; }
+.hero-sub {
+  font-size: 1.1rem; color: var(--soft); max-width: 560px;
+  margin: 1.75rem auto 0; font-weight: 300; line-height: 1.75;
+  position: relative; z-index: 1;
+  animation: fadeUp .8s .2s ease both;
+}
+.hero-actions {
+  display: flex; gap: 1rem; align-items: center; justify-content: center;
+  margin-top: 2.5rem; position: relative; z-index: 1;
+  animation: fadeUp .8s .3s ease both;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--p), var(--p2));
+  color: white; border: none; padding: .9rem 2.2rem;
+  border-radius: 100px; font-family: var(--ff-body); font-size: .95rem;
+  font-weight: 500; cursor: pointer; transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 0 30px rgba(124,58,237,.4);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(124,58,237,.6); }
+.btn-ghost {
+  background: transparent; color: var(--soft); border: 1px solid var(--border);
+  padding: .9rem 2.2rem; border-radius: 100px; font-family: var(--ff-body);
+  font-size: .95rem; cursor: pointer; transition: color .2s, border-color .2s;
+}
+.btn-ghost:hover { color: var(--text); border-color: rgba(196,181,253,.4); }
+.hero-stats {
+  display: flex; gap: 4rem; margin-top: 5rem;
+  position: relative; z-index: 1;
+  animation: fadeUp .8s .4s ease both;
+  border-top: 1px solid var(--border2); padding-top: 3rem;
+}
+.stat-num {
+  font-family: var(--ff-title); font-size: 2.8rem; font-weight: 600;
+  color: white; line-height: 1;
+}
+.stat-num span { color: var(--p3); }
+.stat-label { font-size: .78rem; color: var(--muted); margin-top: .3rem; letter-spacing: .06em; text-transform: uppercase; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   SECTIONS COMMON
+═══════════════════════════════════════════ */
+section { position: relative; z-index: 1; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.section-eyebrow {
+  font-size: .72rem; font-weight: 600; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--p3);
+  margin-bottom: .75rem;
+}
+.section-title {
+  font-family: var(--ff-title); font-size: clamp(2.4rem,5vw,4rem);
+  font-weight: 300; line-height: 1.1; color: white;
+}
+.section-title em { font-style: italic; color: var(--p3); }
+.section-sub {
+  font-size: 1rem; color: var(--soft); line-height: 1.75;
+  max-width: 540px; font-weight: 300; margin-top: .75rem;
+}
+.section-pad { padding: 8rem 0; }
+
+/* ═══════════════════════════════════════════
+   PROBLEMS
+═══════════════════════════════════════════ */
+.problems-bg {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%);
+}
+.problems-header { text-align: center; margin-bottom: 4rem; }
+.problems-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+  background: var(--border2); border: 1px solid var(--border2); border-radius: 16px; overflow: hidden;
+}
+.problem-item {
+  background: var(--surface); padding: 2.5rem 2rem;
+  transition: background .3s;
+}
+.problem-item:hover { background: rgba(124,58,237,.06); }
+.problem-icon {
+  font-size: 1.75rem; margin-bottom: 1.25rem;
+  filter: grayscale(.3);
+}
+.problem-title {
+  font-family: var(--ff-title); font-size: 1.35rem; font-weight: 400;
+  color: white; margin-bottom: .5rem;
+}
+.problem-desc { font-size: .875rem; color: var(--muted); line-height: 1.7; }
+
+/* ═══════════════════════════════════════════
+   SOLUTION / HOW IT WORKS
+═══════════════════════════════════════════ */
+.solution-layout {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+}
+.solution-steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding: 2rem 0; border-bottom: 1px solid var(--border2);
+  cursor: pointer; transition: all .3s; position: relative;
+}
+.step:last-child { border-bottom: none; }
+.step:hover .step-content { transform: translateX(4px); }
+.step-num {
+  font-family: var(--ff-title); font-size: 3rem; font-weight: 300;
+  color: rgba(139,92,246,.2); line-height: 1; flex-shrink: 0; width: 3rem;
+  transition: color .3s;
+}
+.step:hover .step-num { color: var(--p3); }
+.step-content { flex: 1; transition: transform .3s; }
+.step-title {
+  font-size: 1rem; font-weight: 600; color: white; margin-bottom: .35rem;
+}
+.step-desc { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+.solution-visual {
+  position: relative; height: 480px;
+}
+.visual-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px; padding: 2rem;
+  position: absolute;
+}
+.vc-main {
+  width: 100%; top: 0; left: 0;
+  background: linear-gradient(135deg, #0e0920 0%, #130d30 100%);
+}
+.vc-badge {
+  position: absolute; bottom: -2rem; right: -2rem;
+  background: linear-gradient(135deg, var(--p), #4c1d95);
+  border-radius: 16px; padding: 1.25rem 1.5rem;
+  box-shadow: 0 20px 60px rgba(124,58,237,.4);
+  width: 200px;
+}
+.vc-badge-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.6); margin-bottom: .5rem; }
+.vc-badge-val { font-family: var(--ff-title); font-size: 2.2rem; font-weight: 600; color: white; }
+.progress-bar-wrap { margin-top: 1rem; }
+.pb-label { display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); margin-bottom: .35rem; }
+.pb { height: 4px; background: rgba(255,255,255,.08); border-radius: 100px; overflow: hidden; }
+.pb-fill { height: 100%; background: linear-gradient(90deg, var(--p), var(--p3)); border-radius: 100px; }
+.mock-avatar-row { display: flex; gap: .5rem; align-items: center; margin-bottom: 1.5rem; }
+.mock-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--p), #4c1d95);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 600; color: white; flex-shrink: 0;
+}
+.mock-info { flex: 1; }
+.mock-name { font-size: .85rem; color: white; font-weight: 500; }
+.mock-role { font-size: .72rem; color: var(--muted); }
+.mock-badge-inline {
+  background: rgba(16,185,129,.15); color: #6ee7b7;
+  border: 1px solid rgba(16,185,129,.25);
+  padding: .2rem .6rem; border-radius: 100px; font-size: .65rem; font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════
+   FEATURES / PARCOURS
+═══════════════════════════════════════════ */
+.features-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  margin-top: 4rem;
+}
+.feat-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 16px; padding: 2rem;
+  position: relative; overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.feat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--p), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.feat-card:hover { border-color: rgba(139,92,246,.3); transform: translateY(-4px); }
+.feat-card:hover::before { opacity: 1; }
+.feat-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(124,58,237,.1); border: 1px solid rgba(124,58,237,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 1.25rem;
+}
+.feat-title { font-size: 1rem; font-weight: 600; color: white; margin-bottom: .5rem; }
+.feat-desc { font-size: .85rem; color: var(--muted); line-height: 1.7; }
+
+/* ═══════════════════════════════════════════
+   CERTIFICATION SECTION
+═══════════════════════════════════════════ */
+.cert-section { text-align: center; }
+.cert-cards {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+.cert-card {
+  border-radius: 20px; padding: 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  border: 1px solid var(--border2);
+  transition: transform .3s;
+}
+.cert-card:hover { transform: translateY(-6px); }
+.cert-card.featured {
+  background: linear-gradient(135deg, #150d35 0%, #1a1040 100%);
+  border-color: rgba(124,58,237,.4);
+  box-shadow: 0 0 60px rgba(124,58,237,.15);
+}
+.cert-card:not(.featured) { background: var(--surface); }
+.cert-icon-wrap {
+  width: 72px; height: 72px; border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+}
+.cert-level { font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: .5rem; }
+.cert-name { font-family: var(--ff-title); font-size: 1.6rem; font-weight: 400; color: white; margin-bottom: .75rem; }
+.cert-desc { font-size: .85rem; color: var(--muted); line-height: 1.7; }
+.cert-tag {
+  display: inline-block; margin-top: 1.25rem;
+  padding: .3rem .9rem; border-radius: 100px; font-size: .72rem; font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════
+   PRICING
+═══════════════════════════════════════════ */
+.pricing-section { text-align: center; }
+.pricing-toggle {
+  display: inline-flex; background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 100px; padding: .3rem; gap: .25rem; margin: 2rem 0 3.5rem;
+}
+.ptoggle-btn {
+  padding: .5rem 1.5rem; border-radius: 100px; border: none;
+  font-family: var(--ff-body); font-size: .85rem; cursor: pointer; transition: all .2s;
+  background: transparent; color: var(--muted);
+}
+.ptoggle-btn.active { background: var(--p); color: white; }
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  text-align: left;
+}
+.price-card {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 20px; padding: 2.5rem; position: relative; overflow: hidden;
+  transition: transform .3s, border-color .3s;
+}
+.price-card:hover { transform: translateY(-4px); }
+.price-card.popular {
+  border-color: rgba(124,58,237,.5);
+  background: linear-gradient(135deg, #130d2e 0%, #0e0820 100%);
+}
+.popular-badge {
+  position: absolute; top: 1.5rem; right: 1.5rem;
+  background: var(--p); color: white;
+  padding: .25rem .75rem; border-radius: 100px; font-size: .68rem; font-weight: 600;
+}
+.price-plan { font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: .75rem; }
+.price-amount {
+  font-family: var(--ff-title); font-size: 3.5rem; font-weight: 400;
+  color: white; line-height: 1;
+}
+.price-amount sup { font-size: 1.5rem; vertical-align: super; }
+.price-amount span { font-size: 1rem; color: var(--muted); font-family: var(--ff-body); }
+.price-desc { font-size: .85rem; color: var(--muted); margin: 1rem 0 1.75rem; line-height: 1.6; }
+.price-divider { height: 1px; background: var(--border2); margin: 1.75rem 0; }
+.price-feature {
+  display: flex; align-items: flex-start; gap: .6rem;
+  font-size: .85rem; color: var(--soft); margin-bottom: .75rem;
+}
+.price-feature::before {
+  content: '✓'; color: var(--p3); font-weight: 600; flex-shrink: 0; margin-top: .05rem;
+}
+.price-feature.off { color: var(--muted); opacity: .5; }
+.price-feature.off::before { content: '×'; color: var(--muted); }
+.price-cta {
+  width: 100%; margin-top: 2rem; padding: .85rem; border-radius: 100px;
+  font-family: var(--ff-body); font-size: .9rem; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--border); background: transparent; color: var(--text);
+  transition: all .2s;
+}
+.price-cta:hover { border-color: var(--p3); color: var(--p3); }
+.price-card.popular .price-cta {
+  background: linear-gradient(135deg, var(--p), var(--p2));
+  border: none; color: white;
+  box-shadow: 0 8px 30px rgba(124,58,237,.4);
+}
+.price-card.popular .price-cta:hover { box-shadow: 0 12px 40px rgba(124,58,237,.6); transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════ */
+.testimonials-section { overflow: hidden; }
+.testi-header { text-align: center; margin-bottom: 4rem; }
+.testi-track {
+  display: flex; gap: 1.5rem;
+  animation: scroll 40s linear infinite;
+  width: max-content;
+}
+.testi-track:hover { animation-play-state: paused; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.testi-card {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 16px; padding: 2rem; width: 340px; flex-shrink: 0;
+}
+.testi-stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; letter-spacing: .1em; }
+.testi-text { font-size: .9rem; color: var(--soft); line-height: 1.75; font-style: italic; margin-bottom: 1.5rem; }
+.testi-author { display: flex; align-items: center; gap: .75rem; }
+.testi-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--p), #4c1d95);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: .9rem; color: white; flex-shrink: 0;
+}
+.testi-name { font-size: .875rem; color: white; font-weight: 500; }
+.testi-role { font-size: .75rem; color: var(--muted); }
+
+/* ═══════════════════════════════════════════
+   HALL OF FAME PREVIEW
+═══════════════════════════════════════════ */
+.hof-section { background: var(--bg2); }
+.hof-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-top: 3.5rem;
+}
+.hof-card {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 16px; padding: 1.5rem; text-align: center;
+  transition: transform .3s, border-color .3s; cursor: pointer;
+  position: relative; overflow: hidden;
+}
+.hof-card:hover { transform: translateY(-4px); border-color: rgba(139,92,246,.3); }
+.hof-rank {
+  position: absolute; top: .75rem; left: .75rem;
+  font-family: var(--ff-title); font-size: .9rem; color: var(--gold); font-weight: 600;
+}
+.hof-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, #5b21b6, #7c3aed);
+  margin: 0 auto .75rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 700; color: white;
+  border: 2px solid rgba(196,181,253,.2);
+}
+.hof-name { font-size: .9rem; font-weight: 600; color: white; margin-bottom: .2rem; }
+.hof-spec { font-size: .75rem; color: var(--muted); margin-bottom: .6rem; }
+.hof-score {
+  display: flex; align-items: center; justify-content: center; gap: .3rem;
+  font-size: .75rem; color: var(--gold);
+}
+.hof-badge {
+  position: absolute; top: .75rem; right: .75rem;
+  width: 22px; height: 22px; background: rgba(16,185,129,.2);
+  border: 1px solid rgba(16,185,129,.4); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: .6rem;
+}
+
+/* ═══════════════════════════════════════════
+   COMMUNITY / Q&A PREVIEW
+═══════════════════════════════════════════ */
+.community-layout {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+}
+.qa-mock {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 20px; padding: 2rem; position: relative;
+}
+.qa-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border2);
+}
+.qa-title-mock { font-size: .85rem; font-weight: 600; color: white; }
+.qa-count { font-size: .72rem; color: var(--muted); background: rgba(255,255,255,.05); padding: .2rem .6rem; border-radius: 100px; }
+.qa-item { padding: 1rem 0; border-bottom: 1px solid var(--border2); }
+.qa-item:last-child { border-bottom: none; }
+.qa-q { font-size: .85rem; color: var(--text); margin-bottom: .4rem; font-weight: 500; }
+.qa-meta { display: flex; align-items: center; gap: .75rem; font-size: .72rem; color: var(--muted); }
+.qa-voice-pill {
+  background: rgba(124,58,237,.15); color: var(--p3);
+  border: 1px solid rgba(124,58,237,.25);
+  padding: .15rem .5rem; border-radius: 100px; font-size: .65rem;
+}
+
+/* ═══════════════════════════════════════════
+   CTA BANNER
+═══════════════════════════════════════════ */
+.cta-banner {
+  background: linear-gradient(135deg, #130d30 0%, #1a0e40 50%, #130d30 100%);
+  border: 1px solid rgba(124,58,237,.3);
+  border-radius: 24px; padding: 5rem 4rem; text-align: center;
+  margin: 0 0 8rem; position: relative; overflow: hidden;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(124,58,237,.2) 0%, transparent 70%);
+}
+.cta-title {
+  font-family: var(--ff-title); font-size: clamp(2.5rem,5vw,4.5rem);
+  font-weight: 300; color: white; position: relative; z-index: 1;
+  margin-bottom: .75rem;
+}
+.cta-title em { font-style: italic; color: var(--p3); }
+.cta-sub { font-size: 1rem; color: var(--soft); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; position: relative; z-index: 1; }
+.cta-actions { display: flex; gap: 1rem; justify-content: center; position: relative; z-index: 1; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  border-top: 1px solid var(--border2);
+  padding: 3rem 0; color: var(--muted); font-size: .85rem;
+}
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo {
+  font-family: var(--ff-title); font-size: 1.3rem; font-weight: 600;
+  color: rgba(255,255,255,.5);
+}
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a { color: var(--muted); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--text); }
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:1024px) {
+  nav { padding: 1rem 2rem; }
+  .nav-links { display: none; }
+  .solution-layout { grid-template-columns: 1fr; }
+  .solution-visual { display: none; }
+  .features-grid { grid-template-columns: repeat(2,1fr); }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+  .hof-grid { grid-template-columns: repeat(2,1fr); }
+  .community-layout { grid-template-columns: 1fr; }
+  .problems-grid { grid-template-columns: 1fr; }
+  .cert-cards { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
+  .hero-stats { gap: 2rem; }
+}
+@media(max-width:640px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-direction: column; gap: 1.5rem; }
+  .cta-banner { padding: 3rem 1.5rem; }
+  .cta-actions { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ── NAV ─────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo">Nexum<span>École</span></div>
+  <ul class="nav-links">
+    <li><a href="#parcours">Parcours</a></li>
+    <li><a href="#certification">Certification</a></li>
+    <li><a href="#hof">Hall of Fame</a></li>
+    <li><a href="#pricing">Tarifs</a></li>
+    <li><a href="#communaute">Communauté</a></li>
+  </ul>
+  <button class="nav-cta">Commencer gratuitement</button>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-eyebrow">Montage Vidéo & Design — Formation certifiante</div>
+
+  <h1 class="hero-title">
+    Devenez le talent<br>
+    qu'ils <em>cherchent</em> tous.
+  </h1>
+
+  <p class="hero-sub">
+    Une formation structurée, une certification reconnue, et une vitrine directe face aux entrepreneurs qui cherchent exactement votre profil.
+  </p>
+
+  <div class="hero-actions">
+    <button class="btn-primary">Rejoindre l'École →</button>
+    <button class="btn-ghost">Voir le programme</button>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">340<span>+</span></div>
+      <div class="stat-label">Talents certifiés</div>
+    </div>
+    <div>
+      <div class="stat-num">92<span>%</span></div>
+      <div class="stat-label">Taux de placement</div>
+    </div>
+    <div>
+      <div class="stat-num">4.9<span>/5</span></div>
+      <div class="stat-label">Note moyenne</div>
+    </div>
+    <div>
+      <div class="stat-num">18<span>sem</span></div>
+      <div class="stat-label">Durée du parcours</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEMS ─────────────────────────────────────────── -->
+<section class="section-pad problems-bg" id="problemes">
+  <div class="container">
+    <div class="problems-header reveal">
+      <div class="section-eyebrow">Le constat</div>
+      <h2 class="section-title">Vous avez le <em>talent</em>.<br>Vous manquez de la structure.</h2>
+    </div>
+    <div class="problems-grid reveal">
+      <div class="problem-item">
+        <div class="problem-icon">🔍</div>
+        <div class="problem-title">Invisible sur le marché</div>
+        <div class="problem-desc">Vous avez des compétences réelles mais aucun cadre pour les valoriser. Les entrepreneurs ne vous trouvent pas — ou ne vous font pas confiance.</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">📉</div>
+        <div class="problem-title">Sous-payé par rapport à votre valeur</div>
+        <div class="problem-desc">Sans certification ni portfolio structuré, vous bradez vos tarifs. La preuve de compétence vaut plus que la compétence elle-même.</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">🎯</div>
+        <div class="problem-title">Formation sans débouché</div>
+        <div class="problem-desc">Vous avez regardé des tutoriels pendant des heures. Mais apprendre en solo sans évaluation ni mise en pratique professionnelle ne suffit pas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUTION ─────────────────────────────────────────── -->
+<section class="section-pad" id="parcours">
+  <div class="container">
+    <div class="solution-layout">
+      <div>
+        <div class="section-eyebrow reveal">Comment ça marche</div>
+        <h2 class="section-title reveal">Un parcours<br>pensé pour vous<br><em>propulser</em>.</h2>
+        <div class="solution-steps" style="margin-top:3rem">
+          <div class="step reveal">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <div class="step-title">Vous apprenez à votre rythme</div>
+              <div class="step-desc">Vidéos professionnelles, prise de notes intégrée, suivi de progression, accès hors-ligne. Une formation conçue pour aller jusqu'au bout.</div>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <div class="step-title">Vous êtes évalué sur un vrai projet</div>
+              <div class="step-desc">Un projet de fin de formation réel, noté par notre équipe selon une grille professionnelle. Pas de QCM. Une évaluation qui prouve ce que vous valez.</div>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <div class="step-title">Vous êtes certifié et exposé</div>
+              <div class="step-desc">Badge vérifié sur votre profil, attestation physique envoyée chez vous, classement dans le Hall of Fame visible par tous les recruteurs.</div>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <div class="step-title">Les projets viennent à vous</div>
+              <div class="step-desc">Les entrepreneurs commandent directement depuis votre profil. Vous gérez tout depuis la plateforme : devis, livraison sécurisée, facturation.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="solution-visual reveal">
+        <div class="visual-card vc-main">
+          <div class="mock-avatar-row">
+            <div class="mock-avatar">MK</div>
+            <div class="mock-info">
+              <div class="mock-name">Marcus K.</div>
+              <div class="mock-role">Monteur Vidéo · Niveau Expert</div>
+            </div>
+            <div class="mock-badge-inline">✓ Certifié</div>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="pb-label"><span>Module 4 · Couleur & Étalonnage</span><span style="color:var(--p3)">78%</span></div>
+            <div class="pb"><div class="pb-fill" style="width:78%"></div></div>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="pb-label"><span>Module 5 · Motion Design</span><span style="color:var(--muted)">À venir</span></div>
+            <div class="pb"><div class="pb-fill" style="width:0%"></div></div>
+          </div>
+          <div style="margin-top:1.5rem;display:flex;gap:.5rem;flex-wrap:wrap">
+            <span style="background:rgba(196,181,253,.08);border:1px solid rgba(196,181,253,.15);color:var(--p3);padding:.25rem .7rem;border-radius:100px;font-size:.72rem">Premiere Pro</span>
+            <span style="background:rgba(196,181,253,.08);border:1px solid rgba(196,181,253,.15);color:var(--p3);padding:.25rem .7rem;border-radius:100px;font-size:.72rem">After Effects</span>
+            <span style="background:rgba(196,181,253,.08);border:1px solid rgba(196,181,253,.15);color:var(--p3);padding:.25rem .7rem;border-radius:100px;font-size:.72rem">DaVinci</span>
+          </div>
+        </div>
+        <div class="vc-badge">
+          <div class="vc-badge-label">Score Hall of Fame</div>
+          <div class="vc-badge-val">9.4</div>
+          <div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.2rem">★★★★★ · 12 avis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ──────────────────────────────────────────── -->
+<section class="section-pad" style="background:var(--bg2)">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-eyebrow">Fonctionnalités</div>
+      <h2 class="section-title">Tout ce dont vous avez besoin<br>pour <em>réussir</em>.</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card reveal">
+        <div class="feat-icon">📺</div>
+        <div class="feat-title">Vidéos protégées en streaming</div>
+        <div class="feat-desc">Accès hors-ligne, reprise automatique, prise de notes intégrée par vidéo. Le contenu est protégé — il ne quitte pas la plateforme.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">📊</div>
+        <div class="feat-title">Suivi de progression intelligent</div>
+        <div class="feat-desc">Visualisez votre avancement par leçon, module et formation. Sachez exactement où vous en êtes et ce qui vous reste.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🏅</div>
+        <div class="feat-title">Certification en 3 niveaux</div>
+        <div class="feat-desc">Attestation numérique auto-générée, attestation physique envoyée chez vous, et badge vérifié après projet de fin de formation.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">💼</div>
+        <div class="feat-title">Portfolio intégré</div>
+        <div class="feat-desc">Créez votre vitrine professionnelle directement sur la plateforme. Pas besoin de Behance ou de site externe.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">💬</div>
+        <div class="feat-title">Communauté Q&A avec réponses vocales</div>
+        <div class="feat-desc">Posez vos questions, obtenez des réponses en note vocale ou texte. Un hub actif réservé aux membres sérieux.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">📡</div>
+        <div class="feat-title">Live & Masterclass</div>
+        <div class="feat-desc">Masterclass régulières sur la plateforme. Appels privés avec traduction en temps réel et enregistrement sécurisé.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🧾</div>
+        <div class="feat-title">Facturation professionnelle</div>
+        <div class="feat-desc">Émettez des factures PDF directement depuis la plateforme. Gérez votre activité sans outil externe.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🔒</div>
+        <div class="feat-title">Livraison sécurisée</div>
+        <div class="feat-desc">Livrez vos fichiers à vos clients avec protection par mot de passe. Accessible uniquement après paiement.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">🎮</div>
+        <div class="feat-title">Gamification & Monnaie interne</div>
+        <div class="feat-desc">Gagnez des points en progressant. Débloquez des PDFs premium et des cours réservés aux membres les plus actifs.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CERTIFICATION ─────────────────────────────────────── -->
+<section class="section-pad cert-section" id="certification">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Reconnaissance</div>
+      <h2 class="section-title">Une certification qui <em>prouve</em><br>ce que vous valez.</h2>
+      <p class="section-sub" style="margin:0 auto">Trois niveaux de reconnaissance selon votre engagement et la qualité de votre travail.</p>
+    </div>
+    <div class="cert-cards">
+      <div class="cert-card reveal">
+        <div class="cert-icon-wrap" style="background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.15)">📄</div>
+        <div class="cert-level">Niveau 1</div>
+        <div class="cert-name">Attestation numérique</div>
+        <div class="cert-desc">Délivrée automatiquement à la complétion de votre formation. Téléchargeable en PDF depuis votre profil.</div>
+        <span class="cert-tag" style="background:rgba(148,163,184,.08);color:var(--soft);border:1px solid rgba(148,163,184,.15)">Auto à la fin de formation</span>
+      </div>
+      <div class="cert-card featured reveal">
+        <div class="cert-icon-wrap" style="background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3)">🏅</div>
+        <div class="cert-level">Niveau 2</div>
+        <div class="cert-name">Attestation physique</div>
+        <div class="cert-desc">Votre certificat imprimé, signé et envoyé à votre domicile. Un objet tangible qui témoigne de votre parcours.</div>
+        <span class="cert-tag" style="background:rgba(124,58,237,.15);color:var(--p3);border:1px solid rgba(124,58,237,.3)">Envoi postal inclus</span>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon-wrap" style="background:rgba(212,168,83,.08);border:1px solid rgba(212,168,83,.2)">⭐</div>
+        <div class="cert-level">Niveau 3</div>
+        <div class="cert-name">Badge vérifié</div>
+        <div class="cert-desc">Soumettez un projet de fin de formation. Notre équipe l'évalue et vous attribue une note qui détermine votre rang dans le Hall of Fame.</div>
+        <span class="cert-tag" style="background:rgba(212,168,83,.1);color:var(--gold);border:1px solid rgba(212,168,83,.25)">Évaluation professionnelle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HALL OF FAME ──────────────────────────────────────── -->
+<section class="section-pad hof-section" id="hof">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-eyebrow">Visibilité</div>
+      <h2 class="section-title">Le Hall of Fame :<br>votre <em>vitrine</em> face au monde.</h2>
+      <p class="section-sub" style="margin:.75rem auto 0">Chaque talent certifié est exposé aux entrepreneurs et recruteurs. Votre note détermine votre classement. Les meilleurs profils sont vus en premier.</p>
+    </div>
+    <div class="hof-grid reveal">
+      <div class="hof-card">
+        <div class="hof-rank">#1</div>
+        <div class="hof-badge">✓</div>
+        <div class="hof-avatar">AM</div>
+        <div class="hof-name">Aminata M.</div>
+        <div class="hof-spec">Montage Vidéo · Expert</div>
+        <div class="hof-score">★★★★★ <span style="color:var(--muted)">9.8/10</span></div>
+      </div>
+      <div class="hof-card">
+        <div class="hof-rank">#2</div>
+        <div class="hof-badge">✓</div>
+        <div class="hof-avatar" style="background:linear-gradient(135deg,#0e7490,#0369a1)">KD</div>
+        <div class="hof-name">Kofi D.</div>
+        <div class="hof-spec">Design · Motion</div>
+        <div class="hof-score">★★★★★ <span style="color:var(--muted)">9.6/10</span></div>
+      </div>
+      <div class="hof-card">
+        <div class="hof-rank">#3</div>
+        <div class="hof-badge">✓</div>
+        <div class="hof-avatar" style="background:linear-gradient(135deg,#065f46,#047857)">SB</div>
+        <div class="hof-name">Sylvie B.</div>
+        <div class="hof-spec">Montage · Reels</div>
+        <div class="hof-score">★★★★★ <span style="color:var(--muted)">9.4/10</span></div>
+      </div>
+      <div class="hof-card">
+        <div class="hof-rank">#4</div>
+        <div class="hof-badge">✓</div>
+        <div class="hof-avatar" style="background:linear-gradient(135deg,#92400e,#b45309)">OT</div>
+        <div class="hof-name">Omar T.</div>
+        <div class="hof-spec">Montage · YouTube</div>
+        <div class="hof-score">★★★★☆ <span style="color:var(--muted)">9.1/10</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <button class="btn-ghost">Voir tous les talents →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ──────────────────────────────────────── -->
+<section class="section-pad testimonials-section">
+  <div class="container">
+    <div class="testi-header reveal">
+      <div class="section-eyebrow">Témoignages</div>
+      <h2 class="section-title">Ils ont fait le <em>saut</em>.</h2>
+    </div>
+  </div>
+  <div style="overflow:hidden;padding:.5rem 0">
+    <div class="testi-track">
+      <!-- First set -->
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« En 4 mois, j'ai une certification, un portfolio béton, et mes deux premiers clients via le Hall of Fame. Je n'aurais pas cru ça possible aussi vite. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar">AM</div>
+          <div><div class="testi-name">Aminata M.</div><div class="testi-role">Monteuse Vidéo · Dakar</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« La qualité des cours est incomparable. Et surtout, la certification est reconnue. Mon premier client m'a engagé directement depuis mon profil. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#0e7490,#0369a1)">KD</div>
+          <div><div class="testi-name">Kofi D.</div><div class="testi-role">Designer Motion · Abidjan</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« Ce que j'apprécie le plus, c'est la communauté. On peut poser des questions et avoir des réponses vocales de vrais pros. C'est une autre dimension. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#065f46,#047857)">SB</div>
+          <div><div class="testi-name">Sylvie B.</div><div class="testi-role">Monteuse · Lomé</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« La progression est claire, les livrables sont précis. J'ai terminé en 5 mois et j'ai reçu mon certificat par courrier. Ce détail compte vraiment. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#92400e,#b45309)">OT</div>
+          <div><div class="testi-name">Omar T.</div><div class="testi-role">Monteur YouTube · Cotonou</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« Les masterclass live valent à elles seules l'abonnement. Accès direct à des experts et des cas pratiques réels. Mon niveau a explosé en 2 mois. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#5b21b6,#6d28d9)">FN</div>
+          <div><div class="testi-name">Fatou N.</div><div class="testi-role">Designer UI · Douala</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« J'avais peur de ne pas aller jusqu'au bout. Le système de gamification m'a vraiment aidé à rester motivé. Je recommande sans hésitation. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#9f1239,#be123c)">RK</div>
+          <div><div class="testi-name">Roméo K.</div><div class="testi-role">Monteur Ads · Accra</div></div>
+        </div>
+      </div>
+      <!-- Duplicate for loop -->
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« En 4 mois, j'ai une certification, un portfolio béton, et mes deux premiers clients via le Hall of Fame. Je n'aurais pas cru ça possible aussi vite. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar">AM</div>
+          <div><div class="testi-name">Aminata M.</div><div class="testi-role">Monteuse Vidéo · Dakar</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« La qualité des cours est incomparable. Et surtout, la certification est reconnue. Mon premier client m'a engagé directement depuis mon profil. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#0e7490,#0369a1)">KD</div>
+          <div><div class="testi-name">Kofi D.</div><div class="testi-role">Designer Motion · Abidjan</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« Ce que j'apprécie le plus, c'est la communauté. On peut poser des questions et avoir des réponses vocales de vrais pros. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#065f46,#047857)">SB</div>
+          <div><div class="testi-name">Sylvie B.</div><div class="testi-role">Monteuse · Lomé</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« La progression est claire, les livrables sont précis. J'ai terminé en 5 mois et j'ai reçu mon certificat par courrier. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#92400e,#b45309)">OT</div>
+          <div><div class="testi-name">Omar T.</div><div class="testi-role">Monteur YouTube · Cotonou</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« Les masterclass live valent à elles seules l'abonnement. Mon niveau a explosé en 2 mois. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#5b21b6,#6d28d9)">FN</div>
+          <div><div class="testi-name">Fatou N.</div><div class="testi-role">Designer UI · Douala</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">« Le système de gamification m'a vraiment aidé à rester motivé. Je recommande sans hésitation. »</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#9f1239,#be123c)">RK</div>
+          <div><div class="testi-name">Roméo K.</div><div class="testi-role">Monteur Ads · Accra</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ───────────────────────────────────────────── -->
+<section class="section-pad pricing-section" id="pricing" style="background:var(--bg2)">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Tarifs</div>
+      <h2 class="section-title">Investissez dans votre <em>avenir</em>.</h2>
+      <p class="section-sub" style="margin:.75rem auto 0">Un accès complet à la formation, aux outils et à la communauté. Sans surprise.</p>
+    </div>
+    <div style="text-align:center">
+      <div class="pricing-toggle reveal">
+        <button class="ptoggle-btn active" onclick="togglePricing('month', this)">Mensuel</button>
+        <button class="ptoggle-btn" onclick="togglePricing('year', this)">Annuel <span style="color:var(--p3);font-size:.75rem">−30%</span></button>
+      </div>
+    </div>
+    <div class="pricing-grid" id="pricingGrid">
+      <div class="price-card reveal">
+        <div class="price-plan">Découverte</div>
+        <div class="price-amount"><sup>XOF</sup> <span id="p1" data-month="0" data-year="0">Gratuit</span></div>
+        <div class="price-desc">7 jours pour explorer la plateforme et découvrir notre approche pédagogique.</div>
+        <div class="price-divider"></div>
+        <div class="price-feature">Accès aux leçons d'introduction</div>
+        <div class="price-feature">Accès à la communauté Q&A</div>
+        <div class="price-feature">Profil invité</div>
+        <div class="price-feature off">Formation complète</div>
+        <div class="price-feature off">Certification</div>
+        <div class="price-feature off">Hall of Fame</div>
+        <button class="price-cta">Essayer gratuitement</button>
+      </div>
+      <div class="price-card popular reveal">
+        <div class="popular-badge">Le plus choisi</div>
+        <div class="price-plan">Formation Complète</div>
+        <div class="price-amount"><sup>XOF</sup> <span class="price-val" data-month="45 000" data-year="31 500">45 000</span> <span>/mois</span></div>
+        <div class="price-desc">Accès complet à tout le contenu pédagogique, aux outils et à la communauté.</div>
+        <div class="price-divider"></div>
+        <div class="price-feature">Formation complète (toutes filières)</div>
+        <div class="price-feature">Accès hors-ligne aux vidéos</div>
+        <div class="price-feature">Prise de notes intégrée</div>
+        <div class="price-feature">Certification numérique & physique</div>
+        <div class="price-feature">Hall of Fame + Profil public</div>
+        <div class="price-feature">Communauté Q&A illimitée</div>
+        <div class="price-feature">Portfolio builder intégré</div>
+        <div class="price-feature">Outils pro (facture, livraison)</div>
+        <button class="price-cta">Rejoindre maintenant</button>
+      </div>
+      <div class="price-card reveal">
+        <div class="price-plan">Premium Annuel</div>
+        <div class="price-amount"><sup>XOF</sup> <span class="price-val" data-month="378 000" data-year="265 000">378 000</span> <span>/an</span></div>
+        <div class="price-desc">Tout le plan Formation + accès prioritaire aux masterclass et mentorat mensuel.</div>
+        <div class="price-divider"></div>
+        <div class="price-feature">Tout le plan Formation Complète</div>
+        <div class="price-feature">Accès prioritaire aux masterclass live</div>
+        <div class="price-feature">Session de mentorat mensuelle (1h)</div>
+        <div class="price-feature">Revue du projet de fin par l'équipe</div>
+        <div class="price-feature">Badge "Premium" sur profil HoF</div>
+        <div class="price-feature">Support prioritaire</div>
+        <button class="price-cta">Choisir Premium</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMMUNITY ─────────────────────────────────────────── -->
+<section class="section-pad" id="communaute">
+  <div class="container">
+    <div class="community-layout">
+      <div>
+        <div class="section-eyebrow reveal">Communauté</div>
+        <h2 class="section-title reveal">Vous n'apprenez pas <em>seul</em>.</h2>
+        <p class="section-sub reveal">Un hub Q&A actif, des réponses en note vocale, des masterclass live. Une communauté sérieuse de professionnels qui progressent ensemble.</p>
+        <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem" class="reveal">
+          <div style="display:flex;gap:.75rem;align-items:flex-start">
+            <span style="font-size:1.25rem">🎙️</span>
+            <div>
+              <div style="font-size:.9rem;font-weight:600;color:white;margin-bottom:.2rem">Réponses en note vocale</div>
+              <div style="font-size:.82rem;color:var(--muted)">Les formateurs répondent par audio. Plus rapide, plus humain, plus efficace qu'un long texte.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start">
+            <span style="font-size:1.25rem">⚡</span>
+            <div>
+              <div style="font-size:.9rem;font-weight:600;color:white;margin-bottom:.2rem">Accès illimité pour les membres</div>
+              <div style="font-size:.82rem;color:var(--muted)">Posez autant de questions que vous voulez, accédez à toutes les réponses déjà postées.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start">
+            <span style="font-size:1.25rem">📊</span>
+            <div>
+              <div style="font-size:.9rem;font-weight:600;color:white;margin-bottom:.2rem">Votre historique personnel</div>
+              <div style="font-size:.82rem;color:var(--muted)">Toutes vos questions et réponses regroupées dans un dashboard personnel consulté à tout moment.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="qa-mock reveal">
+        <div class="qa-header">
+          <span class="qa-title-mock">Hub Communauté</span>
+          <span class="qa-count">128 questions cette semaine</span>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">Comment gérer les LUTs dans DaVinci pour des vidéos YouTube ?</div>
+          <div class="qa-meta"><span>Aminata M.</span><span>il y a 2h</span><span class="qa-voice-pill">🎙️ Réponse vocale</span><span style="color:var(--p3)">3 réponses</span></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">Quelle structure pour un portfolio de monteur débutant ?</div>
+          <div class="qa-meta"><span>Kofi D.</span><span>il y a 5h</span><span style="color:var(--p3)">7 réponses</span></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">Comment facturer mes premières prestations sans être déclaré ?</div>
+          <div class="qa-meta"><span>Omar T.</span><span>hier</span><span class="qa-voice-pill">🎙️ Réponse vocale</span><span style="color:var(--p3)">5 réponses</span></div>
+        </div>
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border2);display:flex;gap:.5rem">
+          <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:8px;padding:.6rem 1rem;font-size:.8rem;color:var(--muted)">Posez votre question…</div>
+          <button style="background:var(--p);color:white;border:none;border-radius:8px;padding:.6rem 1rem;font-size:.8rem;cursor:pointer">Envoyer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BANNER ────────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div class="cta-banner reveal">
+      <h2 class="cta-title">Votre place dans le<br><em>Hall of Fame</em> vous attend.</h2>
+      <p class="cta-sub">Rejoignez les 340 talents déjà certifiés. Commencez votre parcours aujourd'hui — les 7 premiers jours sont gratuits.</p>
+      <div class="cta-actions">
+        <button class="btn-primary">Commencer gratuitement →</button>
+        <button class="btn-ghost">Voir le programme complet</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">Nexum<span style="font-style:italic;color:var(--gold)">École</span></div>
+      <ul class="footer-links">
+        <li><a href="#">Programme</a></li>
+        <li><a href="#">Certification</a></li>
+        <li><a href="#">Hall of Fame</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Mentions légales</a></li>
+      </ul>
+      <div style="font-size:.78rem;color:var(--muted)">© 2026 Nexum École</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Cursor */
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`; });
+(function animRing(){rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`; requestAnimationFrame(animRing);})();
+
+/* Scroll reveal */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: .12 });
+reveals.forEach(r => observer.observe(r));
+
+/* Pricing toggle */
+function togglePricing(type, btn) {
+  document.querySelectorAll('.ptoggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.price-val').forEach(el => {
+    el.textContent = el.dataset[type];
+  });
+}
+
+/* Nav scroll */
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.background =
+    window.scrollY > 60 ? 'rgba(5,4,13,0.95)' : 'rgba(5,4,13,0.7)';
+});
+</script>
+</body>
+</html>
