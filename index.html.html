@@ -81,7 +81,7 @@ body::before {
    NAV
 ═══════════════════════════════════════════ */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  position: fixed; top: 42px; left: 0; right: 0; z-index: 100;
   padding: 1.25rem 4rem;
   display: flex; align-items: center; justify-content: space-between;
   background: rgba(5,4,13,0.7);
@@ -638,7 +638,7 @@ footer {
   </span>
 </div>
 <!-- ── NAV ─────────────────────────────────────────────── -->
-<nav style="top: 42px;">
+<nav
   <div class="nav-logo">Ecole<span style="color: #0095ff !important; -webkit-text-fill-color: #0095ff !important;">Plenus</span></div>
   <ul class="nav-links">
     <li><a href="#parcours">Parcours</a></li>
@@ -1227,6 +1227,7 @@ function togglePricing(type, btn) {
 window.addEventListener('scroll', () => {
   document.querySelector('nav').style.background =
     window.scrollY > 60 ? 'rgba(5,4,13,0.95)' : 'rgba(5,4,13,0.7)';
+document.querySelector('nav').style.top = '42px';
 });
 </script>
 </body>
