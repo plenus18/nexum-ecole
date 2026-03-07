@@ -1051,43 +1051,118 @@ footer {
   <div class="container">
     <div class="reveal">
       <div class="section-eyebrow">Tarifs</div>
-      <h2 class="section-title">Investissez dans votre <em>avenir</em>.</h2>
-      <p class="section-sub" style="margin:.75rem auto 0">Un accès complet à une formation au choix, aux outils et à la communauté. Sans surprise.</p>
+      <h2 class="section-title">Choisissez votre <em>parcours</em>.</h2>
+      <p class="section-sub" style="margin:.75rem auto 0">Accédez à la plateforme, aux outils pro et à la communauté. Ajoutez une formation quand vous êtes prêt.</p>
     </div>
+
     <div style="text-align:center">
       <div class="pricing-toggle reveal">
         <button class="ptoggle-btn active" onclick="togglePricing('month', this)">Mensuel</button>
-        <button class="ptoggle-btn" onclick="togglePricing('year', this)">Annuel <span style="color:var(--p3);font-size:.75rem">−30%</span></button>
+        <button class="ptoggle-btn" onclick="togglePricing('year', this)">Annuel <span style="color:var(--p3);font-size:.75rem">−40%</span></button>
       </div>
     </div>
+
     <div class="pricing-grid" id="pricingGrid">
+
+      <!-- PLAN 1 : DÉCOUVERTE -->
       <div class="price-card reveal">
         <div class="price-plan">Découverte</div>
-        <div class="price-amount"><sup>XOF</sup> <span id="p1" data-month="0" data-year="0">Gratuit</span></div>
-        <div class="price-desc">7 jours pour explorer la plateforme et découvrir notre approche pédagogique.</div>
+        <div class="price-amount">
+          <sup>XOF</sup>
+          <span class="price-val" data-month="Gratuit" data-year="Gratuit">Gratuit</span>
+        </div>
+        <div class="price-desc">7 jours pour explorer la plateforme, la communauté et découvrir notre approche.</div>
         <div class="price-divider"></div>
         <div class="price-feature">Accès aux leçons d'introduction</div>
-        <div class="price-feature">Accès à la communauté Q&A</div>
+        <div class="price-feature">Communauté Q&A (lecture seule)</div>
         <div class="price-feature">Profil invité</div>
+        <div class="price-feature off">Outils pro (portfolio, facturation…)</div>
         <div class="price-feature off">Formation complète</div>
         <div class="price-feature off">Certification</div>
-        <div class="price-feature off">Hall of Fame</div>
+        <div class="price-feature off">Hall of Fame & Plenexx</div>
         <button class="price-cta">Essayer gratuitement</button>
       </div>
+
+      <!-- PLAN 2 : UNIVERS PLEX -->
       <div class="price-card reveal">
-        <div class="price-plan">Cursus Expert Créatif</div>
-        <div class="price-amount"><sup>XOF</sup> <span class="price-val" data-month="649 000" data-year="449 000">649 000</span> <span>/an</span></div>
-        <div class="price-desc">Tout le plan Formation + accès prioritaire aux masterclass et mentorat mensuel.</div>
+        <div class="price-plan">Univers Plex</div>
+        <div class="price-amount">
+          <sup>XOF</sup>
+          <span class="price-val" data-month="29 000" data-year="290 000">29 000</span>
+          <span id="plex-per">/mois</span>
+        </div>
+        <div style="text-decoration:line-through;color:var(--muted);font-size:.8rem;margin-top:.3rem">
+          Au lieu de <span class="price-val-strike" data-month="49 000 XOF/mois" data-year="490 000 XOF/an">49 000 XOF/mois</span>
+        </div>
+        <div class="price-desc">Accès complet à toute la plateforme et à ses outils pro. Sans formation incluse.</div>
         <div class="price-divider"></div>
-        <div class="price-feature">Tout le plan Formation Complète</div>
-        <div class="price-feature">Accès prioritaire aux masterclass live</div>
-        <div class="price-feature">Session de mentorat mensuelle (1h)</div>
-        <div class="price-feature">Revue du projet de fin par l'équipe</div>
-        <div class="price-feature">Badge "Premium" sur profil HoF</div>
-        <div class="price-feature">Support prioritaire</div>
-        <button class="price-cta">Choisir Premium</button>
+        <div class="price-feature">📺 Cours vidéos hors-ligne & accès à vie</div>
+        <div class="price-feature">📊 Suivi de progression intelligent</div>
+        <div class="price-feature">💼 Portfolio intégré</div>
+        <div class="price-feature">💬 Communauté Q&A illimitée + réponses vocales</div>
+        <div class="price-feature">📡 Live & Masterclass</div>
+        <div class="price-feature">🧾 Facturation professionnelle</div>
+        <div class="price-feature">🔒 Livraison sécurisée + Wallet instantané</div>
+        <div class="price-feature">🎮 Gamification & monnaie interne</div>
+        <div class="price-feature">🚀 Accès Plenexx (mise en relation clients)</div>
+        <div class="price-feature off">Formation certifiante incluse</div>
+        <div class="price-feature off">Certification & Hall of Fame</div>
+        <button class="price-cta">Rejoindre Univers Plex</button>
       </div>
+
+      <!-- PLAN 3 : CURSUS CRÉATIF -->
+      <div class="price-card popular reveal">
+        <div class="popular-badge">Recommandé</div>
+        <div class="price-plan">Cursus Créatif</div>
+        <div class="price-amount">
+          <sup>XOF</sup>
+          <span style="font-size:2.8rem">649 000</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--p3);margin-top:.3rem;font-weight:500">
+          + Plateforme offerte 1 an · puis 29 000 XOF/mois
+        </div>
+        <div class="price-desc">Une formation complète au choix + accès à toute la plateforme gratuitement pendant 1 an.</div>
+
+        <!-- Sélecteur de formation -->
+        <div style="margin:1.25rem 0;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:10px;padding:1rem">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--p3);margin-bottom:.6rem;font-weight:600">Choisissez votre cursus</div>
+          <label style="display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--soft);margin-bottom:.5rem;cursor:pointer">
+            <input type="radio" name="cursus" value="montage" style="accent-color:var(--p)">
+            🎬 Montage vidéo & Motion design
+          </label>
+          <label style="display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--soft);margin-bottom:.5rem;cursor:pointer">
+            <input type="radio" name="cursus" value="graphisme" style="accent-color:var(--p)">
+            🎨 Graphisme & Brand design
+          </label>
+          <label style="display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--soft);cursor:pointer">
+            <input type="radio" name="cursus" value="webdesign" style="accent-color:var(--p)">
+            🖥️ Web design (UI/UX)
+          </label>
+        </div>
+
+        <div class="price-divider"></div>
+        <div class="price-feature">🎓 Formation complète au cursus choisi</div>
+        <div class="price-feature">🏅 Certification 3 niveaux + Badge vérifié</div>
+        <div class="price-feature">🏆 Hall of Fame + Profil public classé</div>
+        <div class="price-feature">📺 Cours vidéos hors-ligne & accès à vie</div>
+        <div class="price-feature">📊 Suivi de progression intelligent</div>
+        <div class="price-feature">💼 Portfolio intégré</div>
+        <div class="price-feature">💬 Communauté Q&A illimitée + réponses vocales</div>
+        <div class="price-feature">📡 Live & Masterclass</div>
+        <div class="price-feature">🧾 Facturation professionnelle</div>
+        <div class="price-feature">🔒 Livraison sécurisée + Wallet instantané</div>
+        <div class="price-feature">🎮 Gamification & monnaie interne</div>
+        <div class="price-feature">🚀 Accès Plenexx (mise en relation clients)</div>
+        <button class="price-cta" onclick="handleCursus()">Choisir mon cursus →</button>
+      </div>
+
     </div>
+
+    <!-- NOTE BAS DE PAGE -->
+    <div class="reveal" style="text-align:center;margin-top:2.5rem;font-size:.8rem;color:var(--muted);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7">
+      Tous les prix sont en Francs CFA (XOF). Le plan Cursus Créatif inclut 12 mois d'accès complet à la plateforme. À l'issue de cette période, l'abonnement Univers Plex (29 000 XOF/mois) s'applique automatiquement si vous souhaitez continuer.
+    </div>
+
   </div>
 </section>
 
@@ -1202,9 +1277,29 @@ reveals.forEach(r => observer.observe(r));
 function togglePricing(type, btn) {
   document.querySelectorAll('.ptoggle-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+
   document.querySelectorAll('.price-val').forEach(el => {
     el.textContent = el.dataset[type];
   });
+  document.querySelectorAll('.price-val-strike').forEach(el => {
+    el.textContent = el.dataset[type];
+  });
+  const plexPer = document.getElementById('plex-per');
+  if (plexPer) plexPer.textContent = type === 'month' ? '/mois' : '/an';
+}
+
+function handleCursus() {
+  const selected = document.querySelector('input[name="cursus"]:checked');
+  if (!selected) {
+    alert('Veuillez sélectionner un cursus avant de continuer.');
+    return;
+  }
+  const labels = {
+    montage: 'Montage vidéo & Motion design',
+    graphisme: 'Graphisme & Brand design',
+    webdesign: 'Web design (UI/UX)'
+  };
+  alert('Cursus sélectionné : ' + labels[selected.value] + '\n\nVous allez être redirigé vers le paiement.');
 }
 
 /* Nav scroll */
